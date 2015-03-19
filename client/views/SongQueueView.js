@@ -12,6 +12,12 @@ var SongQueueView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
+    // second place we're trying to get songQueueView to render:
+    this.collection.on('add', function(){
+    	console.log('songQueueView listener')
+    	this.render();
+    }, this)
+
   },
 
   render: function(){
@@ -19,12 +25,15 @@ var SongQueueView = Backbone.View.extend({
     // see http://api.jquery.com/detach/
     this.$el.children().detach();
 
-    this.$el.html('<th>Queue</th>');
+    console.log("RENDER");
+
+    console.log("this in SongQueueView: ", this);
     // append new songQueueEntryView
- //    console.log("this: ", this);
-	// this.map(function(song){
-	//   return new songQueueEntryView({model: song}).render();
-	// })
+    this.$el.html('<th>Queue</th>').append(
+    	this.collection.map(function(song){
+        return new SongQueueEntryView({model: song}).render();
+      })
+    )
   }
 
 });

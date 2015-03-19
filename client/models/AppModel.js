@@ -4,6 +4,7 @@ var AppModel = Backbone.Model.extend({
   initialize: function(params){
     this.set('currentSong', new SongModel());
     this.set('songQueue', new SongQueue());
+    // this.set('isPlaying', true);
 
     // console.log("this: ", this);
     // console.log("this.songQueue: ", this.get("songQueue") );
@@ -24,9 +25,13 @@ var AppModel = Backbone.Model.extend({
     params.library.on('enqueue', function(song){
       // add song to 'songQueue'
       this.get('songQueue').add(song);
+      // first place we're trying to get songQueueView to render:
+      // appView.get('songQueueView').render();
       console.log("songQueue: ", this.get('songQueue'));
-      // create new songQueueEntryView
+      // create new songQueueEntryView and append to SongQueueView
     }, this);
+
+    //params.library.on('')
   }
 
 });
